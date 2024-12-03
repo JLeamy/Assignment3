@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Calculator</title>
+    <style>
+        .input-field {
+            padding: 5px;
+            margin: 5px;
+            width: 100px;
+        }
+        .button {
+            padding: 10px 15px;
+            margin: 5px;
+        }
+
+        body {
+            border: 5px solid pink;
+            box-shadow: 3px 3px 10px 5px;
+        }
+
+        h2 {
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Change Calculator</h2>
+
+    <label for="amount">Amount (0-99 cents): </label>
+    <input type="text" id="amount" class="input-field" placeholder="Enter amount"><br>
+
+    <button id="makeChangeButton" class="button">Make Change</button><br>
+
+    <label for="quarters">Quarters: </label>
+    <input type="text" id="quarters" class="input-field" readonly><br>
+
+    <label for="dimes">Dimes: </label>
+    <input type="text" id="dimes" class="input-field" readonly><br>
+
+    <label for="nickels">Nickels: </label>
+    <input type="text" id="nickels" class="input-field" readonly><br>
+
+    <label for="pennies">Pennies: </label>
+    <input type="text" id="pennies" class="input-field" readonly><br>
+
+   
+    <p>Created by: Jovan Leamy | Student Number: n01724731</p>
+
+    <script>
+        // 1. Create the $() function to select elements
+        function $(selector) {
+            return document.querySelector(selector);
+        }
+
+        // 2. Event handler to process the user's entry
+        function processEntry() {
+            const amount = parseInt($("#amount").value); 
+
+            
+            if (isNaN(amount) || amount < 0 || amount > 99) {
+                alert("Please enter a valid number between 0 and 99.");
+                return;
+            }
+
+            
+            makeChange(amount);
+        }
+
+        // 3. Function to calculate the change
+        function makeChange(amount) {
+            
+            const quarters = Math.floor(amount / 25);
+            amount = amount % 25;
+
+            const dimes = Math.floor(amount / 10);
+            amount = amount % 10;
+
+            const nickels = Math.floor(amount / 5);
+            amount = amount % 5;
+
+            const pennies = amount; 
+
+            $("#quarters").value = quarters;
+            $("#dimes").value = dimes;
+            $("#nickels").value = nickels;
+            $("#pennies").value = pennies;
+        }
+
+        // 4. DOMContentLoaded event handler to attach the processEntry() function to the button
+        document.addEventListener("DOMContentLoaded", function() {
+    
+            $("#makeChangeButton").addEventListener("click", processEntry);
+        });
+    </script>
+
+</body>
+</html>

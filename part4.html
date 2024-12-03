@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation Form</title>
+    <style>
+        .input-field {
+            margin: 5px;
+            padding: 5px;
+            width: 250px;
+        }
+        .button {
+            margin: 10px;
+            padding: 10px 15px;
+        }
+            
+        body {
+            border: 5px solid pink;
+            box-shadow: 3px 3px 10px 5px;
+        }
+
+        h2 {
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Hotel Reservation Form</h2>
+
+    <form id="reservationForm">
+        <label for="arrivalDate">Arrival Date:</label>
+        <input type="date" id="arrivalDate" class="input-field"><br>
+
+        <label for="nights">Number of Nights:</label>
+        <input type="text" id="nights" class="input-field"><br>
+
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" class="input-field"><br>
+
+        <button type="submit" class="button">Submit</button>
+    </form>
+
+    <p>Created by: Jovan Leamy | Student Number: n01724731</p>
+
+    <script>
+        // 1. The ready event handler
+        document.addEventListener("DOMContentLoaded", function() {
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/; 
+
+            // 2. Focus on the "Arrival date" text box when the page is ready
+            document.getElementById("arrivalDate").focus();
+
+            // 3. Submit event handler for form validation
+            const form = document.getElementById("reservationForm");
+            form.addEventListener("submit", function(event) {
+              
+                const arrivalDate = document.getElementById("arrivalDate").value.trim();
+                const nights = document.getElementById("nights").value.trim();
+                const email = document.getElementById("email").value.trim();
+
+                
+                if (!arrivalDate || !nights || !email) {
+                    alert("All fields must be filled out.");
+                    event.preventDefault(); 
+                    return;
+                }
+
+               
+                if (isNaN(nights) || nights <= 0) {
+                    alert("Number of nights must be a valid number greater than zero.");
+                    event.preventDefault(); 
+                    return;
+                }
+
+            
+                if (!emailPattern.test(email)) {
+                    alert("Please enter a valid email address.");
+                    event.preventDefault();
+                    return;
+                }
+
+        
+                alert("Form is valid. Submitting...");
+            });
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Tax Calculator</title>
+    <style>
+        .input-field {
+            padding: 5px;
+            margin: 5px;
+            width: 200px;
+        }
+        .button {
+            padding: 10px 15px;
+            margin: 5px;
+        }
+
+        body {
+            border: 5px solid pink;
+            box-shadow: 3px 3px 10px 5px;
+        }
+
+        h2 {
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Sales Tax Calculator</h2>
+
+    <label for="subtotal">Subtotal: </label>
+    <input type="text" id="subtotal" class="input-field" placeholder="Enter subtotal"><br>
+
+    <label for="taxRate">Tax Rate (%): </label>
+    <input type="text" id="taxRate" class="input-field" placeholder="Enter tax rate"><br>
+
+    <label for="total">Total: </label>
+    <input type="text" id="total" class="input-field" placeholder="Total" readonly><br>
+
+    <label for="salesTax">Sales Tax: </label>
+    <input type="text" id="salesTax" class="input-field" placeholder="Sales tax" readonly><br>
+
+    <button id="calculateButton" class="button">Calculate</button>
+    <button id="clearButton" class="button">Clear</button>
+
+    <p>Created by: Jovan Leamy | Student Number: n01724731</p>
+
+    <script>
+        // 1. Create a $() function to get the element by CSS selector
+        function $(selector) {
+            return document.querySelector(selector);
+        }
+
+        // 2. Event handler function to process user entries
+        function processEntries() {
+            const subtotal = parseFloat($("#subtotal").value);
+            const taxRate = parseFloat($("#taxRate").value);
+
+            if (isNaN(subtotal) || subtotal <= 0 || subtotal >= 10000) {
+                alert("Subtotal must be > 0 and < 10000");
+                return;
+            }
+            if (isNaN(taxRate) || taxRate <= 0 || taxRate >= 12) {
+                alert("Tax Rate must be > 0 and < 12");
+                return;
+            }
+
+            const salesTax = subtotal * (taxRate / 100);
+            const total = subtotal + salesTax;
+
+            $("#salesTax").value = salesTax.toFixed(2);
+            $("#total").value = total.toFixed(2);
+        }
+
+        // 3. DOMContentLoaded event handler to attach processEntries() to Calculate button click
+        document.addEventListener("DOMContentLoaded", function() {
+    
+            $("#subtotal").focus();
+
+            $("#calculateButton").addEventListener("click", processEntries);
+ 
+            $("#clearButton").addEventListener("click", clearFields);
+            $("#subtotal").addEventListener("click", clearSubtotal);
+            $("#taxRate").addEventListener("click", clearTaxRate);
+        });
+
+        // 6. Add event handler for the Clear button
+        function clearFields() {
+            $("#subtotal").value = "";
+            $("#taxRate").value = "";
+            $("#total").value = "";
+            $("#salesTax").value = "";
+
+         
+            $("#subtotal").focus();
+        }
+
+        // 7. Add event handlers for Subtotal and Tax Rate text boxes to clear data
+        function clearSubtotal() {
+            $("#subtotal").value = "";
+        }
+
+        function clearTaxRate() {
+            $("#taxRate").value = "";
+        }
+    </script>
+
+</body>
+</html>

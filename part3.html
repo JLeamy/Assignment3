@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Income Tax Calculator</title>
+    <style>
+        .input-field {
+            padding: 5px;
+            margin: 5px;
+            width: 200px;
+        }
+        .button {
+            padding: 10px 15px;
+            margin: 5px;
+        }
+
+        body {
+            border: 5px solid pink;
+            box-shadow: 3px 3px 10px 5px;
+        }
+
+        h2 {
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Income Tax Calculator (2020)</h2>
+
+    <label for="income">Taxable Income ($): </label>
+    <input type="text" id="income" class="input-field" placeholder="Enter income"><br>
+
+    <button id="calculateButton" class="button">Calculate Tax</button><br>
+
+    <label for="tax">Calculated Tax ($): </label>
+    <input type="text" id="tax" class="input-field" readonly><br>
+
+   
+    <p>Created by: Jovan Leamy | Student Number: n01724731</p>
+
+    <script>
+        // 1. Create the $() function to select elements
+        function $(selector) {
+            return document.querySelector(selector);
+        }
+
+        // 2. Code the processEntry() function
+        function processEntry() {
+            const income = parseFloat($("#income").value);
+
+            
+            if (isNaN(income) || income <= 0) {
+                alert("Please enter a valid number greater than 0.");
+                $("#income").focus();
+                return;
+            }
+
+           
+            const tax = calculateTax(income);
+
+           
+            $("#tax").value = tax.toFixed(2); 
+
+        
+            $("#income").focus();
+        }
+
+        // 3. Code the calculateTax() function for the first two tax brackets
+        function calculateTax(income) {
+            let tax = 0;
+
+            if (income <= 9875) {
+                
+                tax = income * 0.10;
+            } else if (income <= 40125) {
+             
+                tax = 987.50 + (income - 9875) * 0.12;
+            } else {
+               
+                tax = 0;
+            }
+
+            return tax;
+        }
+
+        // 4. DOMContentLoaded event handler to attach processEntry() to the Calculate button
+        document.addEventListener("DOMContentLoaded", function() {
+          
+            $("#calculateButton").addEventListener("click", processEntry);
+
+            
+            $("#income").focus();
+        });
+    </script>
+
+</body>
+</html>
